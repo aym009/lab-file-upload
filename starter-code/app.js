@@ -68,23 +68,23 @@ passport.use('local-signup', new LocalStrategy(
             if (user) {
                 return next(null, false);
             } else {
-                // Destructure the body
-                const {
-                  username,
-                  email,
-                  password
-                } = req.body;
-                const hashPass = bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-                const newUser = new User({
-                  username,
-                  email,
-                  password: hashPass
-                });
+              // Destructure the body
+              const {
+                username,
+                email,
+                password
+              } = req.body;
+              const hashPass = bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+              const newUser = new User({
+                username,
+                email,
+                password: hashPass
+              });
 
-                newUser.save((err) => {
-                    if (err){ next(null, false, { message: newUser.errors }) }
-                    return next(null, newUser);
-                });
+              newUser.save((err) => {
+                  if (err){ next(null, false, { message: newUser.errors }) }
+                  return next(null, newUser);
+              });
             }
         });
     });
